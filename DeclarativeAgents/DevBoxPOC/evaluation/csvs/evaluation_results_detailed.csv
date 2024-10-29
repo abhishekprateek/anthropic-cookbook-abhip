@@ -1,0 +1,6 @@
+question,retrieval_precision,retrieval_recall,retrieval_mrr,e2e_correct
+How can you create multiple test cases for an evaluation in the Anthropic Evaluation tool?,0.3333333333333333,0.5,0.5,False
+"What embeddings provider does Anthropic recommend for customized domain-specific models, and what capabilities does this provider offer?",0.6666666666666666,1.0,1.0,True
+"What are some key success metrics to consider when evaluating Claude's performance on a classification task, and how do they relate to choosing the right model to reduce latency?",0.3333333333333333,0.5,1.0,True
+What are two ways that Claude for Sheets can improve prompt engineering workflows compared to using chained prompts?,0.3333333333333333,0.5,0.5,True
+"What happens if a prompt for the Text Completions API is missing the ""\n\nHuman:"" and ""\n\nAssistant:"" turns?",0.6666666666666666,1.0,1.0,True
