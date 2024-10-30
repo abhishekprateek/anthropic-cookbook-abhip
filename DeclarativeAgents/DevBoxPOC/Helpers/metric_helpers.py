@@ -4,7 +4,7 @@ import xml.etree.ElementTree as ET
 from tqdm import tqdm
 import logging
 from typing import Callable, List, Dict, Any, Tuple, Set
-from Helpers.openAI_helpers import print_debug_logs
+from Helpers.eval_helpers import print_debug_logs
 
 import anthropic
 import os

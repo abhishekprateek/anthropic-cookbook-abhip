@@ -1,5 +1,6 @@
 import os
 from openai import OpenAI
+from Helpers.eval_helpers import print_debug_logs
 import re
 
 os.environ['OPENAI_API_KEY'] = os.getenv("OPENAI_API_KEY")
@@ -32,10 +33,6 @@ client = OpenAI(api_key=os.environ['OPENAI_API_KEY'])
 anthropicV3_assistant_id = 'asst_Y08LrfVIXEzGTeFpKiW1vMeT'
 anthropicV2_assistant_id = 'asst_IHAfVcQdhcZ5a9YffFhwutS6'
 
-def print_debug_logs(message, debug_logs):
-  if debug_logs:
-    print(message)
-
 def create_thread_and_run(query, debug_logs = False):
   thread = client.beta.threads.create()
   print(f'threadId: {thread.id}')
@@ -66,3 +63,13 @@ def create_thread_and_run(query, debug_logs = False):
     print(run.status)
 
   return chunk_links, response
+
+def test_eval():
+  debug_logs = True
+  query = "How can you create multiple test cases for an evaluation in the Anthropic Evaluation tool?"
+  chunk_links, response = create_thread_and_run(query, debug_logs)
+
+
+  # Print extracted values
+  print_debug_logs(f"Chunk Links:\n {chunk_links}", debug_logs)
+  print_debug_logs(f"Response:\n {response}", debug_logs)

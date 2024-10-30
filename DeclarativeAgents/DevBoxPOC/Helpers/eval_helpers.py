@@ -21,6 +21,10 @@ import os
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+def print_debug_logs(message, debug_logs):
+  if debug_logs:
+    print(message)
+
 def preview_json(file_path, num_items=3):
     try:
         with open(file_path, 'r') as file:
