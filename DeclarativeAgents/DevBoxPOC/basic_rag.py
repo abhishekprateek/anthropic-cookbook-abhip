@@ -14,6 +14,9 @@ import xml.etree.ElementTree as ET
 from tqdm import tqdm
 import logging
 from typing import Callable, List, Dict, Any, Tuple, Set
+from Helpers.metric_helpers import evaluate_retrieval, evaluate_end_to_end
+from Helpers.retrieve_query_helpers import answer_query_base
+from Helpers.eval_helpers import save_xml_string_to_file, save_e2e_results_to_csv, print_and_save_avg_metrics, plot_performance
 
 from Helpers.voyage_vector_db import VectorDB
 
@@ -68,3 +71,32 @@ def answer_query_base(query, db):
         temperature=0
     )
     return response.content[0].text
+
+def evaluate_basic_rag(eval_data_to_use, db, topK = None):
+    if topK is not None:
+        eval_data_to_use = eval_data[:topK]
+
+    avg_precision, avg_recall, avg_mrr, f1, precisions, recalls, mrrs = evaluate_retrieval(retrieve_base, eval_data_to_use, db)
+    e2e_accuracy, e2e_results, detailed_responses = evaluate_end_to_end(answer_query_base, db, eval_data_to_use)
+
+    detailed_responses_file_path = "evaluation/xmls/evaluation_results_detailed.xml"
+    save_xml_string_to_file(detailed_responses, detailed_responses_file_path)
+    print(f"Detailed LLM responses saved to: {detailed_responses_file_path}")
+
+    evaluation_results_detailed_path = 'evaluation/csvs/evaluation_results_detailed.csv'
+    save_e2e_results_to_csv(eval_data_to_use,
+                        precisions,
+                        recalls,
+                        mrrs,
+                        e2e_results,
+                        evaluation_results_detailed_path)
+    print(f"Detailed results saved to: {evaluation_results_detailed_path}")
+
+
+    avg_metrics_path = 'evaluation/json_results/evaluation_results_one.json'
+    print_and_save_avg_metrics(avg_precision, avg_recall, f1, avg_mrr, e2e_accuracy, avg_metrics_path)
+    print(f"Avg Metrics saved to: {avg_metrics_path}")
+
+    plot_performance('evaluation/json_results', ['Basic RAG'], colors=['skyblue'])
+
+    print("Evaluation complete")

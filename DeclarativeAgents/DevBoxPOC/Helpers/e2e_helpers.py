@@ -2,6 +2,21 @@
 
 # Run few queries from evaluation dataset and show the results
 
+import pandas as pd
+import json
+import matplotlib.pyplot as plt
+import xml.etree.ElementTree as ET
+from tqdm import tqdm
+import logging
+import importlib
+
+import anthropic
+import os
+
+client = anthropic.Anthropic(
+    api_key=os.getenv("ANTHROPIC_API_KEY"),
+)
+
 def sample_end_to_end(answer_query_function, db, eval_data, num_queries):
     correct_answers = 0
     results = []
@@ -84,6 +99,10 @@ def sample_end_to_end(answer_query_function, db, eval_data, num_queries):
         # time.sleep(2)
     accuracy = correct_answers / total_questions
     return accuracy, results
+
+def reload_modules(modules):
+    for module in modules:
+        importlib.reload(module)
 
 # e2e_accuracy, e2e_results = sample_end_to_end(answer_query_base, db, eval_data, 2)
 # print(e2e_results)
