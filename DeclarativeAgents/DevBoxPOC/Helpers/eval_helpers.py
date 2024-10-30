@@ -13,6 +13,8 @@
 
 #previewing our eval dataset
 import json
+import xml.dom.minidom as minidom
+import os
 
 def preview_json(file_path, num_items=3):
     try:
@@ -39,3 +41,14 @@ def preview_json(file_path, num_items=3):
         print(f"An error occurred: {str(e)}")
 
 preview_json('evaluation/docs_evaluation_dataset.json')
+
+def save_xml_string_to_file(xml_strings, file_path):
+
+    os.makedirs(os.path.dirname(file_path), exist_ok=True)
+
+    with open(file_path, 'w') as f:
+        concatenated_xml = "<root>\n" + "\n".join(xml_strings) + "\n</root>"
+        dom = minidom.parseString(concatenated_xml)
+        pretty_xml_as_string = dom.toprettyxml()
+        f.write(pretty_xml_as_string)
+    print(f"XML string saved to: {file_path}")

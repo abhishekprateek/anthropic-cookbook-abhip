@@ -4,6 +4,7 @@ import xml.etree.ElementTree as ET
 from tqdm import tqdm
 import logging
 from typing import Callable, List, Dict, Any, Tuple, Set
+from Helpers.openAI_helpers import print_debug_logs
 
 import anthropic
 import os
@@ -53,9 +54,10 @@ def evaluate_retrieval(retrieval_function: Callable, evaluation_data: List[Dict[
     
     return avg_precision, avg_recall, avg_mrr, f1, precisions, recalls, mrrs
 
-def evaluate_end_to_end(answer_query_function, db, eval_data):
+def evaluate_end_to_end(answer_query_function, db, eval_data, debug_logs=False):
     correct_answers = 0
     results = []
+    detailed_responses = []
     total_questions = len(eval_data)
     
     for i, item in enumerate(tqdm(eval_data, desc="Evaluating End-to-End")):
@@ -102,7 +104,19 @@ def evaluate_end_to_end(answer_query_function, db, eval_data):
             )
             
             response_text = response.content[0].text
-            print(response_text)
+            print_debug_logs(response_text, debug_logs)
+
+            detailed_response = (
+                f'<DetailedResponse>'
+                f'<Query>{query}</Query>'
+                f'<CorrectAnswer>{correct_answer}</CorrectAnswer>'
+                f'<GeneratedAnswer>{generated_answer}</GeneratedAnswer>'
+                f'<LLMEvaluation>{response_text}</LLMEvaluation>'
+                f'</DetailedResponse>'
+            )
+
+            detailed_responses.append(detailed_response)
+
             evaluation = ET.fromstring(response_text)
             is_correct = evaluation.find('is_correct').text.lower() == 'true'
             
@@ -127,4 +141,4 @@ def evaluate_end_to_end(answer_query_function, db, eval_data):
             print(f"Processed {i + 1}/{total_questions} questions. Current Accuracy: {current_accuracy:.4f}")
         # time.sleep(2)
     accuracy = correct_answers / total_questions
-    return accuracy, results
+    return accuracy, results, detailed_responses
