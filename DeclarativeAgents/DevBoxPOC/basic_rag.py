@@ -15,7 +15,6 @@ from tqdm import tqdm
 import logging
 from typing import Callable, List, Dict, Any, Tuple, Set
 from Helpers.metric_helpers import evaluate_retrieval, evaluate_end_to_end
-from Helpers.retrieve_query_helpers import answer_query_base
 from Helpers.eval_helpers import save_xml_string_to_file, save_e2e_results_to_csv, print_and_save_avg_metrics, plot_performance
 
 from Helpers.voyage_vector_db import VectorDB
@@ -27,18 +26,6 @@ client = anthropic.Anthropic(
     # This is the default and can be omitted
     api_key=os.getenv("ANTHROPIC_API_KEY"),
 )
-
-# Load the evaluation dataset
-with open('evaluation/docs_evaluation_dataset.json', 'r') as f:
-    eval_data = json.load(f)
-
-# Load the Anthropic documentation
-with open('data/anthropic_docs.json', 'r') as f:
-    anthropic_docs = json.load(f)
-
-# Initialize the VectorDB
-db = VectorDB("anthropic_docs")
-db.load_data(anthropic_docs)
 
 def retrieve_base(query, db):
     results = db.search(query, k=3)
@@ -72,7 +59,7 @@ def answer_query_base(query, db):
     )
     return response.content[0].text
 
-def evaluate_basic_rag(eval_data_to_use, db, topK = None):
+def evaluate_basic_rag(eval_data, db, topK = None):
     if topK is not None:
         eval_data_to_use = eval_data[:topK]
 
