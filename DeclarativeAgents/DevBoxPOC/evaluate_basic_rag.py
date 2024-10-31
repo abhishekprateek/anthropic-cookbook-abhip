@@ -23,6 +23,8 @@ from Helpers.voyage_vector_db import VectorDB
 import anthropic
 import os
 
+basicRAG_scenario = 'BasicRAG'
+
 client = anthropic.Anthropic(
     # This is the default and can be omitted
     api_key=os.getenv("ANTHROPIC_API_KEY"),
@@ -76,17 +78,15 @@ def evaluate_basic_rag_v2(eval_data, db, topK = None):
     if topK is not None:
         eval_data_to_use = eval_data[:topK]
 
-    # avg_precision, avg_recall, avg_mrr, f1, precisions, recalls, mrrs = evaluate_retrieval(retrieve_base, eval_data_to_use, db)
-    # e2e_accuracy, e2e_results, detailed_responses = evaluate_end_to_end(answer_query_base, db, eval_data_to_use)
-
+    scenario = basicRAG_scenario
     rag_query_function = partial(basic_rag_search, db)
     avg_precision, avg_recall, avg_mrr, f1, precisions, recalls, mrrs, accuracy, is_correct_flags, detailed_responses = evaluate_e2e_v2(rag_query_function, eval_data_to_use)
     
-    detailed_responses_file_path = "evaluation/xmls/evaluation_results_detailed.xml"
+    detailed_responses_file_path = f"evaluation/xmls/{scenario}_evaluation_results_detailed.xml"
     save_xml_string_to_file(detailed_responses, detailed_responses_file_path)
     print(f"Detailed LLM responses saved to: {detailed_responses_file_path}")
 
-    evaluation_results_detailed_path = 'evaluation/csvs/evaluation_results_detailed.csv'
+    evaluation_results_detailed_path = f'evaluation/csvs/{scenario}_evaluation_results_detailed.csv'
     save_e2e_results_to_csv(eval_data_to_use,
                         precisions,
                         recalls,
@@ -96,10 +96,10 @@ def evaluate_basic_rag_v2(eval_data, db, topK = None):
     print(f"Detailed results saved to: {evaluation_results_detailed_path}")
 
 
-    avg_metrics_path = 'evaluation/json_results/evaluation_results_one.json'
-    print_and_save_avg_metrics(avg_precision, avg_recall, f1, avg_mrr, accuracy, avg_metrics_path)
+    avg_metrics_path = f'evaluation/json_results/{scenario}_evaluation_results_one.json'
+    print_and_save_avg_metrics(scenario, avg_precision, avg_recall, f1, avg_mrr, accuracy, avg_metrics_path)
     print(f"Avg Metrics saved to: {avg_metrics_path}")
 
-    plot_performance('evaluation/json_results', ['Basic RAG'], colors=['skyblue'])
+    plot_performance('evaluation/json_results', [scenario], colors=['skyblue'])
 
-    print("Evaluation complete")
+    print(f"Evaluation complete: {scenario}")

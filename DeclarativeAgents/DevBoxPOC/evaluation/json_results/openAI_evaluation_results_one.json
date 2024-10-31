@@ -1,0 +1,8 @@
+{
+  "name": "openAI",
+  "average_precision": 0.5,
+  "average_recall": 0.5,
+  "average_f1": 0.5,
+  "average_mrr": 1.0,
+  "end_to_end_accuracy": 1.0
+}

@@ -1,5 +1,5 @@
 {
-  "name": "Basic RAG",
+  "name": "BasicRAG",
   "average_precision": 0.5,
   "average_recall": 0.75,
   "average_f1": 0.6,

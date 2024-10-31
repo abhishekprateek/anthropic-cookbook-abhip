@@ -1,0 +1,79 @@
+<?xml version="1.0" ?>
+<root>
+	
+
+	<DetailedResponse>
+		<Query>How can you create multiple test cases for an evaluation in the Anthropic Evaluation tool?</Query>
+		<CorrectAnswer>To create multiple test cases in the Anthropic Evaluation tool, click the 'Add Test Case' button, fill in values for each variable in your prompt, and repeat the process to create additional test case scenarios.</CorrectAnswer>
+		<GeneratedAnswer>
+To create multiple test cases in the Anthropic Evaluation tool, follow these steps:
+
+1. **Access the Evaluation Screen**: Navigate to the Evaluation screen in the Anthropic Console where you'll initially see a single row for a test case.
+
+2. **Add Test Cases**: Click the ‘Add Test Case’ button to create additional scenarios. You’ll need to fill in the values for each variable in your prompt.
+
+3. **Dynamic Variables**: Ensure that your prompt contains at least 1-2 dynamic variables formatted with double brace syntax (e.g., {{variable}}). This is essential for creating evaluation test sets.
+
+4. **Review and Update**: If you update the original prompt text, you can re-run the entire evaluation suite to assess how the changes affect performance across all test cases.
+
+By structuring your prompts effectively and using dynamic variables, you can create a diverse set of test cases to thoroughly evaluate model performance in various scenarios.
+</GeneratedAnswer>
+		<LLMEvaluation>
+			
+
+			<content>
+				
+
+				<explanation>The Generated Answer is correct based on the Correct Answer. Both answers describe the same essential process for creating multiple test cases in the Anthropic Evaluation tool:
+
+1. Both mention clicking an 'Add Test Case' button to create additional test cases.
+2. Both indicate that users need to fill in values for variables in the prompt for each test case.
+3. Both imply that this process can be repeated to create multiple test cases.
+
+The Generated Answer provides some additional details about dynamic variables and the evaluation process, but these don't contradict the Correct Answer. They merely offer supplementary information. The core process of creating multiple test cases is accurately represented in both answers.</explanation>
+				
+
+				<is_correct>true</is_correct>
+				
+
+			</content>
+			
+
+		</LLMEvaluation>
+	</DetailedResponse>
+	
+
+	<DetailedResponse>
+		<Query>What embeddings provider does Anthropic recommend for customized domain-specific models, and what capabilities does this provider offer?</Query>
+		<CorrectAnswer>Anthropic recommends Voyage AI for embedding models. Voyage AI offers customized models for specific industry domains like finance and healthcare, as well as bespoke fine-tuned models for individual customers. They have a wide variety of options and capabilities.</CorrectAnswer>
+		<GeneratedAnswer>
+Anthropic recommends using Voyage AI as the embeddings provider for customized domain-specific models. Voyage AI offers state-of-the-art embedding models, including options optimized for specific industries like finance and healthcare, as well as bespoke fine-tuned models for individual customers. 
+
+Voyage AI's capabilities include:
+
+- A variety of embedding models tailored for different tasks, such as general-purpose embeddings and specialized models for code, finance, and healthcare.
+- Customization options that allow for continued training on private data or specialization for unique vocabularies and contexts.
+- High-performance embeddings with options like voyage-large, voyage-code, and models optimized for latency and quality.
+
+This flexibility enables businesses to adapt the embeddings to specific needs, ensuring better performance in their intended applications.
+</GeneratedAnswer>
+		<LLMEvaluation>
+			
+
+			<content>
+				
+
+				<explanation>The Generated Answer is correct based on the Correct Answer. It accurately states that Anthropic recommends Voyage AI for embedding models, and it correctly describes Voyage AI's capabilities, including customized models for specific industry domains like finance and healthcare, as well as bespoke fine-tuned models for individual customers. The Generated Answer provides additional details about Voyage AI's offerings, but these details do not contradict the Correct Answer and instead expand upon it. The core information from the Correct Answer is present in the Generated Answer, and there are no critical omissions or contradictions.</explanation>
+				
+
+				<is_correct>true</is_correct>
+				
+
+			</content>
+			
+
+		</LLMEvaluation>
+	</DetailedResponse>
+	
+
+</root>

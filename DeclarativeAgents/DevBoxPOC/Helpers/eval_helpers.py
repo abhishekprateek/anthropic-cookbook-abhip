@@ -71,9 +71,9 @@ def save_e2e_results_to_csv(eval_data, precisions, recalls, mrrs, e2e_results, f
     })
 
     # Save to CSV
-    df.to_csv('evaluation/csvs/evaluation_results_detailed.csv', index=False)
+    df.to_csv(file_path, index=False)
 
-def print_and_save_avg_metrics(avg_precision, avg_recall, f1, avg_mrr, e2e_accuracy, file_path):
+def print_and_save_avg_metrics(scenario, avg_precision, avg_recall, f1, avg_mrr, e2e_accuracy, file_path):
     # Print the results
     print(f"Average Precision: {avg_precision:.4f}")
     print(f"Average Recall: {avg_recall:.4f}")
@@ -83,9 +83,9 @@ def print_and_save_avg_metrics(avg_precision, avg_recall, f1, avg_mrr, e2e_accur
 
     # Save the results to a file
     os.makedirs(os.path.dirname(file_path), exist_ok=True)
-    with open('evaluation/json_results/evaluation_results_one.json', 'w') as f:
+    with open(file_path, 'w') as f:
         json.dump({
-            "name": "Basic RAG",
+            "name": f'{scenario}',
             "average_precision": avg_precision,
             "average_recall": avg_recall,
             "average_f1": f1,

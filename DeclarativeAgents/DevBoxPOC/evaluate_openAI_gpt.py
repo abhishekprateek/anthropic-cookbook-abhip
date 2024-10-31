@@ -2,8 +2,13 @@ import os
 from openai import OpenAI
 from Helpers.eval_helpers import print_debug_logs
 import re
+from typing import Callable, List, Dict, Any, Tuple, Set
+from Helpers.metric_helpers import evaluate_e2e_v2
+from Helpers.eval_helpers import save_xml_string_to_file, save_e2e_results_to_csv, print_and_save_avg_metrics, plot_performance
 
 os.environ['OPENAI_API_KEY'] = os.getenv("OPENAI_API_KEY")
+
+openAI_scenario = 'openAI'
 
 def extract_response_and_links(value):
   
@@ -35,7 +40,7 @@ anthropicV2_assistant_id = 'asst_IHAfVcQdhcZ5a9YffFhwutS6'
 
 def create_thread_and_run(query, debug_logs = False):
   thread = client.beta.threads.create()
-  print(f'threadId: {thread.id}')
+  print_debug_logs(f'threadId: {thread.id}')
 
   message = client.beta.threads.messages.create(
     thread_id=thread.id,
@@ -52,10 +57,9 @@ def create_thread_and_run(query, debug_logs = False):
     messages = client.beta.threads.messages.list(
       thread_id=thread.id
     )
-    # print(messages)
 
     value = messages.data[0].content[0].text.value
-    print_debug_logs(f'Value:\n {value}', debug_logs)
+    print_debug_logs(f'Value2:\n {value}', debug_logs)
 
     chunk_links, response = extract_response_and_links(value)
 
@@ -64,12 +68,40 @@ def create_thread_and_run(query, debug_logs = False):
 
   return chunk_links, response
 
-def test_eval():
+def test_openAI_e2e(query):
   debug_logs = True
   query = "How can you create multiple test cases for an evaluation in the Anthropic Evaluation tool?"
   chunk_links, response = create_thread_and_run(query, debug_logs)
 
+def openAI_gpt_query_function(query):
+   chunk_links, response = create_thread_and_run(query, debug_logs = False)
+   return response, chunk_links
 
-  # Print extracted values
-  print_debug_logs(f"Chunk Links:\n {chunk_links}", debug_logs)
-  print_debug_logs(f"Response:\n {response}", debug_logs)
+def evaluate_opeAI_gpt(eval_data, topK = None):
+    if topK is not None:
+        eval_data_to_use = eval_data[:topK]
+
+    avg_precision, avg_recall, avg_mrr, f1, precisions, recalls, mrrs, accuracy, is_correct_flags, detailed_responses = evaluate_e2e_v2(openAI_gpt_query_function, eval_data_to_use)
+    
+    scenario = openAI_scenario
+    detailed_responses_file_path = f"evaluation/xmls/{scenario}_evaluation_results_detailed.xml"
+    save_xml_string_to_file(detailed_responses, detailed_responses_file_path)
+    print(f"Detailed LLM responses saved to: {detailed_responses_file_path}")
+
+    evaluation_results_detailed_path = f'evaluation/csvs/{scenario}_evaluation_results_detailed.csv'
+    save_e2e_results_to_csv(eval_data_to_use,
+                        precisions,
+                        recalls,
+                        mrrs,
+                        is_correct_flags,
+                        evaluation_results_detailed_path)
+    print(f"Detailed results saved to: {evaluation_results_detailed_path}")
+
+
+    avg_metrics_path = f'evaluation/json_results/{scenario}_evaluation_results_one.json'
+    print_and_save_avg_metrics(scenario, avg_precision, avg_recall, f1, avg_mrr, accuracy, avg_metrics_path)
+    print(f"Avg Metrics saved to: {avg_metrics_path}")
+
+    plot_performance('evaluation/json_results', [scenario], colors=['skyblue'])
+
+    print(f"Evaluation complete: {scenario}")
