@@ -100,9 +100,8 @@ def sample_end_to_end(answer_query_function, db, eval_data, num_queries):
     accuracy = correct_answers / total_questions
     return accuracy, results
 
-def reload_modules(modules):
-    for module in modules:
-        importlib.reload(module)
-
-# e2e_accuracy, e2e_results = sample_end_to_end(answer_query_base, db, eval_data, 2)
-# print(e2e_results)
+def get_sublist(list, start = 0, num_items = None):
+    if num_items is None:
+        num_items = len(list) - start
+    print(f'StartIndex: {start}, NumItems: {num_items}')
+    return list[start:start + num_items]

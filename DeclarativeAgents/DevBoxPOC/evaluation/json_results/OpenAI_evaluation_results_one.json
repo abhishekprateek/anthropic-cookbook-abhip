@@ -1,8 +1,8 @@
 {
   "name": "OpenAI",
-  "average_precision": 0.5,
-  "average_recall": 0.5,
-  "average_f1": 0.5,
-  "average_mrr": 1.0,
-  "end_to_end_accuracy": 1.0
+  "average_precision": 0.5266666666666666,
+  "average_recall": 0.6,
+  "average_f1": 0.5609467455621302,
+  "average_mrr": 0.8166666666666667,
+  "end_to_end_accuracy": 0.85
 }

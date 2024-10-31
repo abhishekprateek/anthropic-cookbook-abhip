@@ -1,3 +1,21 @@
 question,retrieval_precision,retrieval_recall,retrieval_mrr,e2e_correct
-How can you create multiple test cases for an evaluation in the Anthropic Evaluation tool?,0.5,0.5,1.0,True
-"What embeddings provider does Anthropic recommend for customized domain-specific models, and what capabilities does this provider offer?",0.5,0.5,1.0,True
+How can you create multiple test cases for an evaluation in the Anthropic Evaluation tool?,0.3333333333333333,0.5,1.0,True
+"What embeddings provider does Anthropic recommend for customized domain-specific models, and what capabilities does this provider offer?",0.6666666666666666,1.0,1.0,True
+"What are some key success metrics to consider when evaluating Claude's performance on a classification task, and how do they relate to choosing the right model to reduce latency?",0.25,0.5,1.0,True
+What are two ways that Claude for Sheets can improve prompt engineering workflows compared to using chained prompts?,0.3333333333333333,0.5,0.5,True
+"What happens if a prompt for the Text Completions API is missing the ""\n\nHuman:"" and ""\n\nAssistant:"" turns?",1.0,0.5,1.0,True
+How do the additional tokens required for tool use in Claude API requests impact pricing compared to regular API requests?,0.5,0.5,1.0,True
+"When will the new Anthropic Developer Console features that show API usage, billing details, and rate limits be available?",1.0,1.0,1.0,True
+"When deciding whether to use chain-of-thought (CoT) for a task, what are two key factors to consider in order to strike the right balance between performance and latency?",0.5,0.5,1.0,True
+How can I use Claude to more easily digest the content of long PDF documents?,0.3333333333333333,0.5,0.5,True
+"According to the documentation, where can you view your organization's current API rate limits in the Anthropic Console?",1.0,1.0,1.0,False
+How can we measure the performance of the ticket classification system implemented using Claude beyond just accuracy?,0.3333333333333333,0.5,1.0,False
+How can you specify a system prompt using the Text Completions API versus the Messages API?,0.5,0.5,1.0,True
+How can you combine XML tags with chain of thought reasoning to create high-performance prompts for Claude?,0.2,0.5,0.3333333333333333,True
+"When evaluating the Claude model's performance for ticket routing, what three key metrics are calculated and what are the results for the claude-3-haiku-20240307 model on the 91 test samples?",0.3333333333333333,0.5,1.0,True
+"Before starting to engineer and improve a prompt in Claude, what key things does Anthropic recommend you have in place first?",1.0,0.5,1.0,True
+How does the Messages API handle mid-response prompting compared to the Text Completions API?,0.6666666666666666,1.0,1.0,True
+How does Claude's response differ when given a role through a system prompt compared to not having a specific role in the financial analysis example?,0.0,0.0,0.0,False
+"What are some quantitative metrics that can be used to measure the success of a sentiment analysis model, and how might specific targets for those metrics be determined?",0.25,1.0,0.5,True
+What is a power user tip mentioned in the documentation for creating high-performance prompts using XML tags?,1.0,0.5,1.0,True
+How can you use an LLM like Claude to automatically grade the outputs of other LLMs based on a rubric?,0.3333333333333333,0.5,0.5,True

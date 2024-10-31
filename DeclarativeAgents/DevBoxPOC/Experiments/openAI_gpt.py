@@ -5,6 +5,7 @@ import re
 from typing import Callable, List, Dict, Any, Tuple, Set
 from Helpers.metric_helpers import evaluate_e2e_v2
 from Helpers.eval_helpers import save_xml_string_to_file, save_e2e_results_to_csv, print_and_save_avg_metrics, plot_performance
+from Helpers.e2e_helpers import get_sublist
 
 os.environ['OPENAI_API_KEY'] = os.getenv("OPENAI_API_KEY")
 
@@ -38,7 +39,7 @@ client = OpenAI(api_key=os.environ['OPENAI_API_KEY'])
 anthropicV3_assistant_id = 'asst_Y08LrfVIXEzGTeFpKiW1vMeT'
 anthropicV2_assistant_id = 'asst_IHAfVcQdhcZ5a9YffFhwutS6'
 
-def create_thread_and_run(query, debug_logs = False):
+def create_thread_and_run(query):
   thread = client.beta.threads.create()
   print_debug_logs(f'threadId: {thread.id}')
 
@@ -59,7 +60,7 @@ def create_thread_and_run(query, debug_logs = False):
     )
 
     value = messages.data[0].content[0].text.value
-    print_debug_logs(f'Value2:\n {value}', debug_logs)
+    print_debug_logs(f'Value2:\n {value}')
 
     chunk_links, response = extract_response_and_links(value)
 
@@ -71,15 +72,14 @@ def create_thread_and_run(query, debug_logs = False):
 def test_openAI_e2e(query):
   debug_logs = True
   query = "How can you create multiple test cases for an evaluation in the Anthropic Evaluation tool?"
-  chunk_links, response = create_thread_and_run(query, debug_logs)
+  chunk_links, response = create_thread_and_run(query)
 
 def openAI_gpt_query_function(query):
-   chunk_links, response = create_thread_and_run(query, debug_logs = False)
+   chunk_links, response = create_thread_and_run(query)
    return response, chunk_links
 
-def evaluate_opeAI_gpt(eval_data, topK = None):
-    if topK is not None:
-        eval_data_to_use = eval_data[:topK]
+def evaluate_opeAI_gpt(eval_data, start_index = 0, num_items = None):
+    eval_data_to_use = get_sublist(eval_data, start_index, num_items)
 
     avg_precision, avg_recall, avg_mrr, f1, precisions, recalls, mrrs, accuracy, is_correct_flags, detailed_responses = evaluate_e2e_v2(openAI_gpt_query_function, eval_data_to_use)
     

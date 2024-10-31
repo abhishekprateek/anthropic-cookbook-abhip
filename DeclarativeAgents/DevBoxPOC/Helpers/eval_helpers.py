@@ -21,7 +21,8 @@ import os
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-def print_debug_logs(message, debug_logs = False):
+def print_debug_logs(message):
+  debug_logs = os.getenv("DEBUG_LOGS", 'false').lower() == 'true'
   if debug_logs:
     print(message)
 
@@ -54,10 +55,15 @@ def save_xml_string_to_file(xml_strings, file_path):
     os.makedirs(os.path.dirname(file_path), exist_ok=True)
 
     with open(file_path, 'w') as f:
-        concatenated_xml = "<root>\n" + "\n".join(xml_strings) + "\n</root>"
-        dom = minidom.parseString(concatenated_xml)
-        pretty_xml_as_string = dom.toprettyxml()
-        f.write(pretty_xml_as_string)
+        try:
+            concatenated_xml = '\n'.join(xml_strings)
+            f.write(concatenated_xml)
+            # concatenated_xml = "<root>\n" + "\n".join(xml_strings) + "\n</root>"
+            # dom = minidom.parseString(concatenated_xml)
+            # pretty_xml_as_string = dom.toprettyxml()
+            # f.write(pretty_xml_as_string)
+        except Exception as e:
+            print(f"save_xml_string_to_file error: {str(e)}, raw string: {concatenated_xml}")
 
 def save_e2e_results_to_csv(eval_data, precisions, recalls, mrrs, e2e_results, file_path):
     os.makedirs(os.path.dirname(file_path), exist_ok=True)

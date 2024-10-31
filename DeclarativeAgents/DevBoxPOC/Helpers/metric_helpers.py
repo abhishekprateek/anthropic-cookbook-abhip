@@ -35,6 +35,7 @@ def evaluate_e2e_v2(search_function: Callable, eval_data):
         correct_links = set(item['correct_chunks'])
 
         precision, recall, mrr, detailed_response, is_correct = evauluate_e2e_single_query(query, search_function, correct_answer, correct_links)
+        print_debug_logs(f"detailed_response:\n {detailed_response}")
 
         precisions.append(precision)
         recalls.append(recall)
@@ -120,12 +121,9 @@ def calculate_answer_accuracy(query, correct_answer, generated_answer):
                 f'</DetailedResponse>'
             )
         
-        evaluation = ET.fromstring(response_text)
-        is_correct = evaluation.find('is_correct').text.lower() == 'true'
+        is_correct = '<is_correct>true' in response_text.lower()
+        # print_debug_logs(f"Is Correct: {is_correct}")
 
-    except ET.ParseError as e:
-        logging.error(f"XML parsing error: {e}")
-        is_correct = 'true' in response_text.lower()
     except Exception as e:
         logging.error(f"Unexpected error: ", exc_info=True)
 

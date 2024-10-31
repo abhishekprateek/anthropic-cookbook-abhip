@@ -1,8 +1,8 @@
 {
   "name": "BasicRAG",
-  "average_precision": 0.5,
-  "average_recall": 0.75,
-  "average_f1": 0.6,
-  "average_mrr": 0.75,
-  "end_to_end_accuracy": 0.5
+  "average_precision": 0.3833333333333333,
+  "average_recall": 0.65,
+  "average_f1": 0.48225806451612907,
+  "average_mrr": 0.6333333333333333,
+  "end_to_end_accuracy": 0.65
 }

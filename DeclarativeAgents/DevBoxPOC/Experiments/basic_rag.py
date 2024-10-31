@@ -16,6 +16,7 @@ import logging
 from typing import Callable, List, Dict, Any, Tuple, Set
 from Helpers.metric_helpers import evaluate_e2e_v2
 from Helpers.eval_helpers import save_xml_string_to_file, save_e2e_results_to_csv, print_and_save_avg_metrics, plot_performance
+from Helpers.e2e_helpers import get_sublist
 from functools import partial
 
 import anthropic
@@ -72,9 +73,9 @@ def query_llm(query, context):
     )
     return response.content[0].text
 
-def evaluate_basic_rag_v2(eval_data, db, topK = None):
-    if topK is not None:
-        eval_data_to_use = eval_data[:topK]
+def evaluate_basic_rag_v2(eval_data, db, start_index = 0, num_items = None):
+    
+    eval_data_to_use = get_sublist(eval_data, start_index, num_items)
 
     scenario = scenario_basicRAG
     rag_query_function = partial(basic_rag_search, db)
