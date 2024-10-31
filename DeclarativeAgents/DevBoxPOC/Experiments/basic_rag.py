@@ -18,12 +18,10 @@ from Helpers.metric_helpers import evaluate_e2e_v2
 from Helpers.eval_helpers import save_xml_string_to_file, save_e2e_results_to_csv, print_and_save_avg_metrics, plot_performance
 from functools import partial
 
-from Helpers.voyage_vector_db import VectorDB
-
 import anthropic
 import os
 
-basicRAG_scenario = 'BasicRAG'
+scenario_basicRAG = 'BasicRAG'
 
 client = anthropic.Anthropic(
     # This is the default and can be omitted
@@ -78,7 +76,7 @@ def evaluate_basic_rag_v2(eval_data, db, topK = None):
     if topK is not None:
         eval_data_to_use = eval_data[:topK]
 
-    scenario = basicRAG_scenario
+    scenario = scenario_basicRAG
     rag_query_function = partial(basic_rag_search, db)
     avg_precision, avg_recall, avg_mrr, f1, precisions, recalls, mrrs, accuracy, is_correct_flags, detailed_responses = evaluate_e2e_v2(rag_query_function, eval_data_to_use)
     

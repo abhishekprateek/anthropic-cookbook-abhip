@@ -8,7 +8,7 @@ from Helpers.eval_helpers import save_xml_string_to_file, save_e2e_results_to_cs
 
 os.environ['OPENAI_API_KEY'] = os.getenv("OPENAI_API_KEY")
 
-openAI_scenario = 'openAI'
+scenario_openAI = 'OpenAI'
 
 def extract_response_and_links(value):
   
@@ -83,7 +83,7 @@ def evaluate_opeAI_gpt(eval_data, topK = None):
 
     avg_precision, avg_recall, avg_mrr, f1, precisions, recalls, mrrs, accuracy, is_correct_flags, detailed_responses = evaluate_e2e_v2(openAI_gpt_query_function, eval_data_to_use)
     
-    scenario = openAI_scenario
+    scenario = scenario_openAI
     detailed_responses_file_path = f"evaluation/xmls/{scenario}_evaluation_results_detailed.xml"
     save_xml_string_to_file(detailed_responses, detailed_responses_file_path)
     print(f"Detailed LLM responses saved to: {detailed_responses_file_path}")

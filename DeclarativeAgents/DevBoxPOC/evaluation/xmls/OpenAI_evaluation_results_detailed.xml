@@ -1,0 +1,79 @@
+<?xml version="1.0" ?>
+<root>
+	
+
+	<DetailedResponse>
+		<Query>How can you create multiple test cases for an evaluation in the Anthropic Evaluation tool?</Query>
+		<CorrectAnswer>To create multiple test cases in the Anthropic Evaluation tool, click the 'Add Test Case' button, fill in values for each variable in your prompt, and repeat the process to create additional test case scenarios.</CorrectAnswer>
+		<GeneratedAnswer>
+To create multiple test cases in the Anthropic Evaluation tool, follow these steps:
+
+1. **Access the Evaluation Screen**: Start by navigating to the Evaluation tool section in the Anthropic Console.
+
+2. **Add Test Cases**: Click on the 'Add Test Case' button. This will allow you to incrementally create more test cases as needed.
+
+3. **Fill in Variables**: For each test case, you must provide values for the variables in your prompt. It’s essential to ensure that your prompt includes at least 1-2 dynamic variables formatted with the double brace syntax (e.g., {{variable}}), which is required to create evaluation test sets.
+
+4. **Repeat for Multiple Scenarios**: Continue adding new test cases by repeating the above steps, ensuring that each test case generates different scenarios based on the variable inputs you've set up.
+
+5. **Update and Rerun**: If you modify your original prompt, you can re-run the entire evaluation suite against the new prompt to observe how changes affect the performance across all test cases.
+
+By utilizing these steps, you can effectively create and manage multiple test cases for evaluations using the Anthropic tool.</GeneratedAnswer>
+		<LLMEvaluation>
+			
+
+			<content>
+				
+
+				<explanation>The Generated Answer is correct based on the Correct Answer. Both answers describe the same essential process for creating multiple test cases in the Anthropic Evaluation tool:
+
+1. Both mention clicking an 'Add Test Case' button to create new test cases.
+2. Both indicate that you need to fill in values for variables in your prompt for each test case.
+3. Both imply that you can repeat this process to create additional test cases.
+
+The Generated Answer provides some additional details and context, but it doesn't contradict or omit any critical information from the Correct Answer. The substance of both answers is essentially the same, focusing on the key steps of adding test cases and filling in variable values repeatedly to create multiple scenarios.</explanation>
+				
+
+				<is_correct>true</is_correct>
+				
+
+			</content>
+			
+
+		</LLMEvaluation>
+	</DetailedResponse>
+	
+
+	<DetailedResponse>
+		<Query>What embeddings provider does Anthropic recommend for customized domain-specific models, and what capabilities does this provider offer?</Query>
+		<CorrectAnswer>Anthropic recommends Voyage AI for embedding models. Voyage AI offers customized models for specific industry domains like finance and healthcare, as well as bespoke fine-tuned models for individual customers. They have a wide variety of options and capabilities.</CorrectAnswer>
+		<GeneratedAnswer>
+Anthropic recommends Voyage AI as the embeddings provider for customized domain-specific models. Voyage AI offers a variety of state-of-the-art embedding models, including customized options tailored to specific industries such as finance and healthcare. They also provide bespoke fine-tuned models for individual customers.
+
+Voyage AI’s capabilities include:
+- **Generalist and Specialized Models**: Models like voyage-large-2 and voyage-code-2 provide high performance across multiple domains and specialized tasks, such as code retrieval.
+- **Customization Options**: Voyage AI allows for continued training on private data and specialization of models for unique vocabularies, enhancing performance for specific use cases.
+- **Advanced Functionality**: They support API access and have various model options to fit different needs.
+
+Overall, users are encouraged to explore Voyage AI along with other vendors to find the best fit for their particular applications.
+</GeneratedAnswer>
+		<LLMEvaluation>
+			
+
+			<content>
+				
+
+				<explanation>The Generated Answer is correct based on the Correct Answer. It accurately states that Anthropic recommends Voyage AI for embedding models, and it correctly describes Voyage AI's capabilities, including customized models for specific industry domains like finance and healthcare, as well as bespoke fine-tuned models for individual customers. The Generated Answer provides additional details about Voyage AI's offerings, but these details do not contradict the Correct Answer and instead expand upon it. The substance of both answers is essentially the same, focusing on Voyage AI's recommendation and its capabilities for customization and domain-specific models.</explanation>
+				
+
+				<is_correct>true</is_correct>
+				
+
+			</content>
+			
+
+		</LLMEvaluation>
+	</DetailedResponse>
+	
+
+</root>

@@ -18,7 +18,7 @@
 			<content>
 				
 
-				<explanation>The generated answer is incorrect. While it provides some general advice about creating test cases, it does not accurately describe the specific process for creating multiple test cases in the Anthropic Evaluation tool. The correct answer states that you should click the 'Add Test Case' button, fill in values for each variable in your prompt, and repeat this process for additional test cases. The generated answer does not mention this specific functionality or process within the tool. Instead, it describes a more general approach to test case creation that is not specific to the Anthropic Evaluation tool.</explanation>
+				<explanation>The generated answer is incorrect. While it provides some general advice about creating test cases, it does not accurately describe the specific process for creating multiple test cases in the Anthropic Evaluation tool. The correct answer states that you should click the 'Add Test Case' button and fill in values for each variable in your prompt, repeating this process for additional test cases. The generated answer does not mention this specific functionality or process within the tool, instead focusing on general test case creation principles. This omission of the key, tool-specific information makes the generated answer incorrect in this context.</explanation>
 				
 
 				<is_correct>false</is_correct>

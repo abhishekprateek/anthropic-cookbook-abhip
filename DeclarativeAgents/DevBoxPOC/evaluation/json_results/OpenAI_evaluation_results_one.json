@@ -1,5 +1,5 @@
 {
-  "name": "openAI",
+  "name": "OpenAI",
   "average_precision": 0.5,
   "average_recall": 0.5,
   "average_f1": 0.5,
