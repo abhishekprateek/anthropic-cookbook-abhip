@@ -1,0 +1,64 @@
+<?xml version="1.0" ?>
+<root>
+	
+
+	<DetailedResponse>
+		<Query>How can you create multiple test cases for an evaluation in the Anthropic Evaluation tool?</Query>
+		<CorrectAnswer>To create multiple test cases in the Anthropic Evaluation tool, click the 'Add Test Case' button, fill in values for each variable in your prompt, and repeat the process to create additional test case scenarios.</CorrectAnswer>
+		<GeneratedAnswer>To create multiple test cases for an evaluation in the Anthropic Evaluation tool, you can follow these steps:
+
+1. Identify the key scenarios or use cases you want to test for your prompt or application.
+2. Develop a set of test cases that cover those scenarios, including both typical and edge cases.
+3. Organize your test cases into a structured format, such as a spreadsheet or a JSON file, that can be easily imported into the Evaluation tool.
+4. Provide clear instructions and expected outputs for each test case to help the Evaluation tool assess the performance of your prompt.
+5. Review and refine your test cases over time to ensure they continue to be relevant and comprehensive.</GeneratedAnswer>
+		<LLMEvaluation>
+			
+
+			<content>
+				
+
+				<explanation>The generated answer is incorrect. While it provides some general advice about creating test cases, it does not accurately describe the specific process for creating multiple test cases in the Anthropic Evaluation tool. The correct answer states that you should click the 'Add Test Case' button and fill in values for each variable in your prompt, repeating this process for additional test cases. The generated answer does not mention this specific functionality or process within the tool, instead focusing on general test case creation principles. This omission of the key, tool-specific information makes the generated answer incorrect in this context.</explanation>
+				
+
+				<is_correct>false</is_correct>
+				
+
+			</content>
+			
+
+		</LLMEvaluation>
+	</DetailedResponse>
+	
+
+	<DetailedResponse>
+		<Query>What embeddings provider does Anthropic recommend for customized domain-specific models, and what capabilities does this provider offer?</Query>
+		<CorrectAnswer>Anthropic recommends Voyage AI for embedding models. Voyage AI offers customized models for specific industry domains like finance and healthcare, as well as bespoke fine-tuned models for individual customers. They have a wide variety of options and capabilities.</CorrectAnswer>
+		<GeneratedAnswer>Anthropic recommends Voyage AI as an embeddings provider for customized domain-specific models. Voyage AI offers a variety of embedding models, including:
+
+- voyage-large-2: Voyage AI's most powerful generalist embedding model.
+- voyage-code-2: Optimized for code retrieval, with 17% better performance than alternatives.
+- voyage-240001024: A base generalist embedding model optimized for both latency and quality.
+- voyage-lite-02-instruct: An instruction-tuned model for classification, clustering, and sentence textual similarity tasks.
+
+Voyage AI also offers fine-tuning services to customize bespoke models for individual customers' specific domains, such as finance, law, multilingual, and healthcare, which are currently in development.</GeneratedAnswer>
+		<LLMEvaluation>
+			
+
+			<content>
+				
+
+				<explanation>The Generated Answer is correct and aligns well with the Correct Answer. Both answers state that Anthropic recommends Voyage AI for embedding models, especially for customized domain-specific models. The Generated Answer provides more specific details about Voyage AI's offerings, but these details do not contradict the Correct Answer. Both answers mention that Voyage AI offers customized models for specific industry domains and bespoke fine-tuned models for individual customers. The Generated Answer elaborates on the types of models available, which is consistent with the Correct Answer's statement about Voyage AI having &quot;a wide variety of options and capabilities.&quot; There are no critical pieces of information missing from the Generated Answer, nor are there any contradictions with the Correct Answer.</explanation>
+				
+
+				<is_correct>true</is_correct>
+				
+
+			</content>
+			
+
+		</LLMEvaluation>
+	</DetailedResponse>
+	
+
+</root>

@@ -21,7 +21,7 @@ import os
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-def print_debug_logs(message, debug_logs):
+def print_debug_logs(message, debug_logs = False):
   if debug_logs:
     print(message)
 

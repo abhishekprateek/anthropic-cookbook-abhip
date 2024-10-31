@@ -41,7 +41,7 @@ class VectorDB:
         self.embeddings = [embedding for batch in result for embedding in batch]
         self.metadata = data
 
-    def search(self, query, k=5, similarity_threshold=0.75):
+    def search(self, query, k=3, similarity_threshold=0.75):
         if query in self.query_cache:
             query_embedding = self.query_cache[query]
         else:
