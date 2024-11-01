@@ -138,3 +138,11 @@ dmypy.json
 *.DS_Store
 tmp_*
 examples/fine-tuned_qa/local_cache/*
+
+# Vector cached files
+*.pkl
+
+# DA Evaluation results
+*_evaluation_*.json
+*_evaluation_*.xml
+*_evaluation_*.csv

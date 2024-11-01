@@ -27,36 +27,44 @@ def evaluate_e2e_v2(search_function: Callable, eval_data):
     total_questions = len(eval_data)
     precisions = []
     recalls = []
-    mrrs = []    
+    mrrs = []
+    success_count = 0
+    failure_count = 0
 
     for i, item in enumerate(tqdm(eval_data, desc="Evaluating End-to-End V2")):
-        query = item['question']
-        correct_answer = item['correct_answer']
-        correct_links = set(item['correct_chunks'])
+        try:
+            query = item['question']
+            correct_answer = item['correct_answer']
+            correct_links = set(item['correct_chunks'])
 
-        precision, recall, mrr, detailed_response, is_correct = evauluate_e2e_single_query(query, search_function, correct_answer, correct_links)
-        print_debug_logs(f"detailed_response:\n {detailed_response}")
+            precision, recall, mrr, detailed_response, is_correct = evauluate_e2e_single_query(query, search_function, correct_answer, correct_links)
+            print_debug_logs(f"detailed_response:\n {detailed_response}")
 
-        precisions.append(precision)
-        recalls.append(recall)
-        mrrs.append(mrr)
-        
-        detailed_responses.append(detailed_response)
-        if is_correct:
-            correct_answers += 1
-        is_correct_flags.append(is_correct)
-        
-        logging.info(f"Question {i + 1}/{total_questions}: {query}")
-        logging.info(f"Correct: {is_correct}")
-        logging.info("---")
+            precisions.append(precision)
+            recalls.append(recall)
+            mrrs.append(mrr)
+            
+            detailed_responses.append(detailed_response)
+            if is_correct:
+                correct_answers += 1
+            is_correct_flags.append(is_correct)
+            
+            logging.info(f"Question {i + 1}/{total_questions}: {query}")
+            logging.info(f"Correct: {is_correct}")
+            logging.info("---")
 
-        if (i + 1) % 10 == 0:
-            print(f"Processed {i + 1}/{total_questions} items. Current Avg Precision: {sum(precisions) / len(precisions):.4f}, Avg Recall: {sum(recalls) / len(recalls):.4f}, Avg MRR: {sum(mrrs) / len(mrrs):.4f}")
-            current_accuracy = correct_answers / (i + 1)
-            print(f"Processed {i + 1}/{total_questions} questions. Current Accuracy: {current_accuracy:.4f}")
+            if (i + 1) % 10 == 0:
+                print(f"Processed {i + 1}/{total_questions} items. Current Avg Precision: {sum(precisions) / len(precisions):.4f}, Avg Recall: {sum(recalls) / len(recalls):.4f}, Avg MRR: {sum(mrrs) / len(mrrs):.4f}")
+                current_accuracy = correct_answers / (i + 1)
+                print(f"Processed {i + 1}/{total_questions} questions. Current Accuracy: {current_accuracy:.4f}")
 
-        # time.sleep(2)
+            success_count += 1
+            # time.sleep(2)
+        except Exception as e:
+            logging.error(f"Unexpected error while processing query #{i}, query {query}: ", exc_info=True)
+            failure_count += 1
 
+    print(f"Success count: {success_count}, Failure count: {failure_count}, Success rate: {success_count * 100 / (success_count + failure_count):.4f} %")
     avg_precision = sum(precisions) / len(precisions) if precisions else 0
     avg_recall = sum(recalls) / len(recalls) if recalls else 0
     avg_mrr = sum(mrrs) / len(mrrs) if mrrs else 0
@@ -72,11 +80,11 @@ def evauluate_e2e_single_query(query, search_function: Callable, correct_answer,
 
     precision, recall, mrr = calculate_retrieval_metrics(retrieved_links, correct_links)
 
-    detailed_response, is_correct = calculate_answer_accuracy(query, correct_answer, generated_answer)
+    detailed_response, is_correct = calculate_answer_accuracy(query, correct_answer, generated_answer, retrieved_links, correct_links)
 
     return precision, recall, mrr, detailed_response, is_correct
 
-def calculate_answer_accuracy(query, correct_answer, generated_answer):
+def calculate_answer_accuracy(query, correct_answer, generated_answer, retrieved_links, correct_links):
     prompt = f"""
         You are an AI assistant tasked with evaluating the correctness of answers to questions about Anthropic's documentation.
         Question: {query}
@@ -116,7 +124,9 @@ def calculate_answer_accuracy(query, correct_answer, generated_answer):
                 f'<DetailedResponse>'
                 f'<Query>{query}</Query>'
                 f'<CorrectAnswer>{correct_answer}</CorrectAnswer>'
+                f'<CorrectLinks>{correct_links}</CorrectCorrectLinks>'
                 f'<GeneratedAnswer>{generated_answer}</GeneratedAnswer>'
+                f'<RetrievedLinks>{retrieved_links}</RetrievedLinks>'
                 f'<LLMEvaluation>{response_text}</LLMEvaluation>'
                 f'</DetailedResponse>'
             )
