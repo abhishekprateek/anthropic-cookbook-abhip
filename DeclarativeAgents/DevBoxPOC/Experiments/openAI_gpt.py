@@ -1,11 +1,7 @@
 import os
 from openai import OpenAI
-from Helpers.eval_helpers import print_debug_logs
+from Helpers.eval_helpers import print_debug_logs, evaluate_e2e_v3
 import re
-from typing import Callable, List, Dict, Any, Tuple, Set
-from Helpers.metric_helpers import evaluate_e2e_v2
-from Helpers.eval_helpers import save_xml_string_to_file, save_e2e_results_to_csv, print_and_save_avg_metrics, plot_performance
-from Helpers.e2e_helpers import get_sublist
 
 os.environ['OPENAI_API_KEY'] = os.getenv("OPENAI_API_KEY")
 
@@ -79,29 +75,4 @@ def openAI_gpt_query_function(query):
    return response, chunk_links
 
 def evaluate_opeAI_gpt(eval_data, start_index = 0, num_items = None):
-    eval_data_to_use = get_sublist(eval_data, start_index, num_items)
-
-    avg_precision, avg_recall, avg_mrr, f1, precisions, recalls, mrrs, accuracy, is_correct_flags, detailed_responses = evaluate_e2e_v2(openAI_gpt_query_function, eval_data_to_use)
-    
-    scenario = scenario_openAI
-    detailed_responses_file_path = f"evaluation/xmls/{scenario}_evaluation_results_detailed.xml"
-    save_xml_string_to_file(detailed_responses, detailed_responses_file_path)
-    print(f"Detailed LLM responses saved to: {detailed_responses_file_path}")
-
-    evaluation_results_detailed_path = f'evaluation/csvs/{scenario}_evaluation_results_detailed.csv'
-    save_e2e_results_to_csv(eval_data_to_use,
-                        precisions,
-                        recalls,
-                        mrrs,
-                        is_correct_flags,
-                        evaluation_results_detailed_path)
-    print(f"Detailed results saved to: {evaluation_results_detailed_path}")
-
-
-    avg_metrics_path = f'evaluation/json_results/{scenario}_evaluation_results_one.json'
-    print_and_save_avg_metrics(scenario, avg_precision, avg_recall, f1, avg_mrr, accuracy, avg_metrics_path)
-    print(f"Avg Metrics saved to: {avg_metrics_path}")
-
-    plot_performance('evaluation/json_results', [scenario], colors=['skyblue'])
-
-    print(f"Evaluation complete: {scenario}")
+    evaluate_e2e_v3(scenario_openAI, openAI_gpt_query_function, eval_data, start_index, num_items)
